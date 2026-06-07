@@ -132,10 +132,23 @@ img { display: block; max-width: 100%; }
   margin: 0 auto;
   padding: 100px 40px 80px;
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 60px;
+  grid-template-columns: 220px 1fr auto;
+  gap: 48px;
   align-items: center;
   width: 100%;
+}
+
+/* ── Hero Deco SVG ── */
+.hero-deco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#deco-svg {
+  width: 200px;
+  height: 200px;
+  overflow: visible;
+  opacity: 0.85;
 }
 
 /* hero text side */
@@ -618,6 +631,7 @@ img { display: block; max-width: 100%; }
     padding: 90px 28px 70px;
     gap: 40px;
   }
+  .hero-deco { display: none; }
   .hero-chips, .hero-actions { justify-content: center; }
   .hero-card { margin: 0 auto; max-width: 280px; }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
