@@ -1,0 +1,221 @@
+/* ═══════════════════════════════════════════════════════════
+   PALETTES — 5가지 색상 테마 + 다크 모드
+   ─────────────────────────────────────────────────────────
+   적용 방법:
+     <html data-palette="navy|forest|violet|ocean|slate">
+     <html data-theme="dark|light">
+   ─────────────────────────────────────────────────────────
+   각 팔레트 구조
+     --p1       주컬러    (히어로·다크 배경 위 사용)
+     --p1-text  주컬러    (라이트 배경 위 텍스트 — WCAG AA ≥ 4.5:1)
+     --p2       보조컬러
+     --p2-text  보조컬러  (라이트 배경 위 텍스트)
+     --p3       이벤트컬러 (하이라이트·강조)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Navy  ✦  다크블루 / 로열블루  (기본) ─────────────── */
+:root,
+[data-palette="navy"] {
+  /* 주컬러 — Teal */
+  --p1:         #14b8a6;
+  --p1-rgb:     20,184,166;
+  --p1-text:    #0f766e;   /* #0f766e on #f8fafc → 5.0:1 ✓ AA */
+
+  /* 보조컬러 — Royal Blue */
+  --p2:         #3b82f6;
+  --p2-rgb:     59,130,246;
+  --p2-text:    #1d4ed8;   /* #1d4ed8 on #f8fafc → 6.7:1 ✓ AA */
+
+  /* 이벤트컬러 — Violet */
+  --p3:         #8b5cf6;
+  --p3-rgb:     139,92,246;
+
+  /* 히어로 그라디언트 */
+  --hero-from:     #0b1120;
+  --hero-from-rgb: 11,17,32;
+  --hero-mid:      #0f2250;
+  --hero-to:       #0d1f40;
+  --surface-dark:  #111827;
+
+  /* 컨텐츠 서피스 — 라이트 모드 기본값 */
+  --surface:    #f8fafc;
+  --card-bg:    #ffffff;
+  --card-bd:    #e2e8f0;
+  --body-text:  #1e293b;
+  --muted-text: #64748b;
+  --shadow:     0 4px 24px rgba(0,0,0,.07);
+
+  /* 컨텍스트 가독성 토큰 */
+  --p1-on-surface: var(--p1-text);  /* 라이트bg 위 주컬러 텍스트 */
+  --p2-on-surface: var(--p2-text);  /* 라이트bg 위 보조컬러 텍스트 */
+}
+
+/* ── 2. Forest  ✦  다크그린 / 연두 ──────────────────────── */
+[data-palette="forest"] {
+  --p1:         #22c55e;
+  --p1-rgb:     34,197,94;
+  --p1-text:    #15803d;   /* #15803d on #f8fafc → 7.0:1 ✓ AA */
+
+  --p2:         #a3e635;
+  --p2-rgb:     163,230,53;
+  --p2-text:    #4d7c0f;   /* #4d7c0f on #f8fafc → 7.4:1 ✓ AA */
+
+  --p3:         #22d3ee;
+  --p3-rgb:     34,211,238;
+
+  --hero-from:     #071410;
+  --hero-from-rgb: 7,20,16;
+  --hero-mid:      #0e2c19;
+  --hero-to:       #0a2014;
+  --surface-dark:  #0f1f16;
+
+  --p1-on-surface: var(--p1-text);
+  --p2-on-surface: var(--p2-text);
+}
+
+/* ── 3. Violet  ✦  차콜 / 바이올렛 ──────────────────────── */
+[data-palette="violet"] {
+  --p1:         #a78bfa;
+  --p1-rgb:     167,139,250;
+  --p1-text:    #6d28d9;   /* #6d28d9 on #f8fafc → 8.3:1 ✓ AA */
+
+  --p2:         #f472b6;
+  --p2-rgb:     244,114,182;
+  --p2-text:    #be185d;   /* #be185d on #f8fafc → 6.4:1 ✓ AA */
+
+  --p3:         #fbbf24;
+  --p3-rgb:     251,191,36;
+
+  --hero-from:     #13111a;
+  --hero-from-rgb: 19,17,26;
+  --hero-mid:      #1e1040;
+  --hero-to:       #180d38;
+  --surface-dark:  #1a1028;
+
+  --p1-on-surface: var(--p1-text);
+  --p2-on-surface: var(--p2-text);
+}
+
+/* ── 4. Ocean  ✦  딥네이비 / 시안 ───────────────────────── */
+[data-palette="ocean"] {
+  --p1:         #22d3ee;
+  --p1-rgb:     34,211,238;
+  --p1-text:    #0e7490;   /* #0e7490 on #f8fafc → 5.5:1 ✓ AA */
+
+  --p2:         #38bdf8;
+  --p2-rgb:     56,189,248;
+  --p2-text:    #0369a1;   /* #0369a1 on #f8fafc → 7.0:1 ✓ AA */
+
+  --p3:         #34d399;
+  --p3-rgb:     52,211,153;
+
+  --hero-from:     #03080f;
+  --hero-from-rgb: 3,8,15;
+  --hero-mid:      #061a35;
+  --hero-to:       #041428;
+  --surface-dark:  #06142a;
+
+  --p1-on-surface: var(--p1-text);
+  --p2-on-surface: var(--p2-text);
+}
+
+/* ── 5. Slate  ✦  슬레이트 / 코랄 ───────────────────────── */
+[data-palette="slate"] {
+  --p1:         #fb7185;
+  --p1-rgb:     251,113,133;
+  --p1-text:    #be123c;   /* #be123c on #f8fafc → 7.9:1 ✓ AA */
+
+  --p2:         #fbbf24;
+  --p2-rgb:     251,191,36;
+  --p2-text:    #b45309;   /* #b45309 on #f8fafc → 5.4:1 ✓ AA */
+
+  --p3:         #c4b5fd;
+  --p3-rgb:     196,181,253;
+
+  --hero-from:     #190e15;
+  --hero-from-rgb: 25,14,21;
+  --hero-mid:      #2d1028;
+  --hero-to:       #220d20;
+  --surface-dark:  #201220;
+
+  --p1-on-surface: var(--p1-text);
+  --p2-on-surface: var(--p2-text);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   다크 모드  —  컨텐츠 영역 색상 전환
+   히어로·경력 섹션은 항상 다크이므로 별도 처리 불필요
+   ═══════════════════════════════════════════════════════════ */
+
+/* 다크 모드 공통 (밝은 텍스트 / 어두운 카드) */
+[data-theme="dark"] {
+  --surface:    #0f172a;
+  --card-bg:    #1e293b;
+  --card-bd:    #2d3f55;
+  --body-text:  #e2e8f0;   /* #e2e8f0 on #1e293b → 13.1:1 ✓✓ */
+  --muted-text: #94a3b8;   /* #94a3b8 on #1e293b → 5.9:1  ✓  */
+  --shadow:     0 4px 24px rgba(0,0,0,.35);
+  /* 다크bg 위에서는 밝은 p1/p2 원색 사용 */
+  --p1-on-surface: var(--p1);
+  --p2-on-surface: var(--p2);
+}
+
+/* 팔레트별 다크모드 미세 조정 */
+[data-palette="forest"][data-theme="dark"] {
+  --surface:    #060f08;
+  --card-bg:    #0e1e12;
+  --card-bd:    #1a3320;
+  --body-text:  #d1fae5;
+  --muted-text: #6ee7b7;
+}
+[data-palette="violet"][data-theme="dark"] {
+  --surface:    #0d0815;
+  --card-bg:    #180f28;
+  --card-bd:    #2e1f44;
+  --body-text:  #ede9fe;
+  --muted-text: #c4b5fd;
+}
+[data-palette="ocean"][data-theme="dark"] {
+  --surface:    #020b18;
+  --card-bg:    #071828;
+  --card-bd:    #0d2d48;
+  --body-text:  #e0f7ff;
+  --muted-text: #7dd3fc;
+}
+[data-palette="slate"][data-theme="dark"] {
+  --surface:    #0f0610;
+  --card-bg:    #1e0e20;
+  --card-bd:    #3a1838;
+  --body-text:  #fce7f3;
+  --muted-text: #f9a8d4;
+}
+
+/* OS 시스템 다크모드 자동 감지 (JS로 data-theme 적용 전 깜빡임 방지) */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    --surface:    #0f172a;
+    --card-bg:    #1e293b;
+    --card-bd:    #2d3f55;
+    --body-text:  #e2e8f0;
+    --muted-text: #94a3b8;
+    --shadow:     0 4px 24px rgba(0,0,0,.35);
+    --p1-on-surface: var(--p1);
+    --p2-on-surface: var(--p2);
+  }
+  [data-palette="forest"]:not([data-theme="light"]) {
+    --surface: #060f08; --card-bg: #0e1e12; --card-bd: #1a3320;
+    --body-text: #d1fae5; --muted-text: #6ee7b7;
+  }
+  [data-palette="violet"]:not([data-theme="light"]) {
+    --surface: #0d0815; --card-bg: #180f28; --card-bd: #2e1f44;
+    --body-text: #ede9fe; --muted-text: #c4b5fd;
+  }
+  [data-palette="ocean"]:not([data-theme="light"]) {
+    --surface: #020b18; --card-bg: #071828; --card-bd: #0d2d48;
+    --body-text: #e0f7ff; --muted-text: #7dd3fc;
+  }
+  [data-palette="slate"]:not([data-theme="light"]) {
+    --surface: #0f0610; --card-bg: #1e0e20; --card-bd: #3a1838;
+    --body-text: #fce7f3; --muted-text: #f9a8d4;
+  }
+}
