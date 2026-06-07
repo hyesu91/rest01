@@ -26,6 +26,26 @@
     </div>
   </nav>
 
+  <!-- Hero -->
+  <section class="hero">
+    <canvas id="particles"></canvas>
+    <div class="hero-content">
+      <p class="hero-greeting fade-up">안녕하세요, 저는</p>
+      <h1 class="hero-name fade-up delay-1">윤혜수 <span class="hero-name-en">Hyesu Yun</span></h1>
+      <div class="hero-typing fade-up delay-2">
+        <span id="typed-text"></span><span class="cursor">|</span>
+      </div>
+      <div class="hero-badges fade-up delay-3">
+        <span class="h-badge">Amyloid-β</span>
+        <span class="h-badge">Tau</span>
+        <span class="h-badge">α-Synuclein</span>
+        <span class="h-badge">8년 경력</span>
+      </div>
+      <a href="#summary" class="hero-btn fade-up delay-4">자세히 보기 ↓</a>
+    </div>
+    <div class="hero-scroll-hint">scroll</div>
+  </section>
+
   <div class="wrapper">
 
     <!-- Sidebar -->
@@ -227,7 +247,91 @@
   </footer>
 
   <script>
-    // Navbar scroll effect
+    // ── Particle Canvas ──
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
+
+    function resize() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', () => { resize(); initParticles(); });
+    resize();
+
+    function Particle() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.r = Math.random() * 1.8 + 0.4;
+      this.dx = (Math.random() - 0.5) * 0.4;
+      this.dy = (Math.random() - 0.5) * 0.4;
+      this.alpha = Math.random() * 0.5 + 0.1;
+    }
+
+    function initParticles() {
+      particles = Array.from({ length: 110 }, () => new Particle());
+    }
+    initParticles();
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(20,184,166,${p.alpha})`;
+        ctx.fill();
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < 0 || p.x > W) p.dx *= -1;
+        if (p.y < 0 || p.y > H) p.dy *= -1;
+      });
+
+      // Draw connecting lines
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(59,130,246,${0.12 * (1 - dist / 100)})`;
+            ctx.lineWidth = 0.6;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    // ── Typing Effect ──
+    const phrases = [
+      '항체의약품 개발 연구원',
+      'Antibody Drug Developer',
+      '퇴행성 뇌질환 연구 전문가',
+      'Neurodegenerative Disease Researcher',
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    const typedEl = document.getElementById('typed-text');
+
+    function type() {
+      const current = phrases[pi];
+      if (!deleting) {
+        typedEl.textContent = current.slice(0, ++ci);
+        if (ci === current.length) { deleting = true; setTimeout(type, 1800); return; }
+      } else {
+        typedEl.textContent = current.slice(0, --ci);
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+      }
+      setTimeout(type, deleting ? 40 : 75);
+    }
+    setTimeout(type, 800);
+
+    // ── Fade-up on load ──
+    document.querySelectorAll('.fade-up').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 100);
+    });
+
+    // ── Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 10);
