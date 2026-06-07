@@ -31,6 +31,7 @@ body {
   background: var(--light);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  transition: background-color .45s ease, color .35s ease;
 }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
@@ -404,6 +405,7 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   gap: 9px;
+  transition: color .4s ease;
 }
 .sec-label::before {
   content: '';
@@ -413,6 +415,7 @@ img { display: block; max-width: 100%; }
   background: var(--p1-on-surface);
   border-radius: 1px;
   flex-shrink: 0;
+  transition: background-color .4s ease;
 }
 .section.alt .sec-label { color: rgba(var(--p1-rgb),.92); }
 .section.alt .sec-label::before { background: rgba(var(--p1-rgb),.92); }
@@ -455,7 +458,7 @@ img { display: block; max-width: 100%; }
   border-radius: 8px;
   background: var(--card);
   border: 1px solid var(--border);
-  transition: color .2s, border-color .2s;
+  transition: background-color .4s, border-color .4s, color .3s;
 }
 .contact-item:hover { color: rgba(var(--p2-rgb),.5); border-color: rgba(var(--p2-rgb),.5); }
 
@@ -468,7 +471,7 @@ img { display: block; max-width: 100%; }
   border-radius: var(--radius);
   padding: 22px 24px;
   box-shadow: var(--shadow);
-  transition: box-shadow .2s, border-color .2s;
+  transition: background-color .4s, border-color .4s, border-left-color .4s, box-shadow .4s;
 }
 .info-card:hover {
   box-shadow: 0 6px 28px rgba(0,0,0,.09);
@@ -593,7 +596,7 @@ img { display: block; max-width: 100%; }
   border-radius: var(--radius);
   padding: 26px 24px;
   box-shadow: var(--shadow);
-  transition: transform .2s, box-shadow .2s, border-color .2s;
+  transition: transform .2s, background-color .4s, border-color .4s, border-top-color .4s, box-shadow .4s;
 }
 .sk-card:hover {
   transform: translateY(-4px);
