@@ -69,6 +69,11 @@
   --hero-to:       #0a2014;
   --surface-dark:  #0f1f16;
 
+  /* 라이트모드 서피스 */
+  --surface:  #f0fdf4;
+  --card-bd:  #bbf7d0;
+  --shadow:   0 4px 24px rgba(34,197,94,.09);
+
   --p1-on-surface: var(--p1-text);
   --p2-on-surface: var(--p2-text);
 }
@@ -91,6 +96,11 @@
   --hero-mid:      #1e1040;
   --hero-to:       #180d38;
   --surface-dark:  #1a1028;
+
+  /* 라이트모드 서피스 */
+  --surface:  #faf5ff;
+  --card-bd:  #ddd6fe;
+  --shadow:   0 4px 24px rgba(167,139,250,.09);
 
   --p1-on-surface: var(--p1-text);
   --p2-on-surface: var(--p2-text);
@@ -115,6 +125,11 @@
   --hero-to:       #041428;
   --surface-dark:  #06142a;
 
+  /* 라이트모드 서피스 */
+  --surface:  #ecfeff;
+  --card-bd:  #a5f3fc;
+  --shadow:   0 4px 24px rgba(34,211,238,.09);
+
   --p1-on-surface: var(--p1-text);
   --p2-on-surface: var(--p2-text);
 }
@@ -137,6 +152,11 @@
   --hero-mid:      #2d1028;
   --hero-to:       #220d20;
   --surface-dark:  #201220;
+
+  /* 라이트모드 서피스 */
+  --surface:  #fff1f2;
+  --card-bd:  #fecdd3;
+  --shadow:   0 4px 24px rgba(251,113,133,.09);
 
   --p1-on-surface: var(--p1-text);
   --p2-on-surface: var(--p2-text);

@@ -464,6 +464,7 @@ img { display: block; max-width: 100%; }
 .info-card {
   background: var(--card);
   border: 1px solid var(--border);
+  border-left: 3px solid var(--p1-on-surface);
   border-radius: var(--radius);
   padding: 22px 24px;
   box-shadow: var(--shadow);
@@ -588,6 +589,7 @@ img { display: block; max-width: 100%; }
 .sk-card {
   background: var(--card);
   border: 1px solid var(--border);
+  border-top: 2px solid rgba(var(--p1-rgb),.35);
   border-radius: var(--radius);
   padding: 26px 24px;
   box-shadow: var(--shadow);
@@ -691,6 +693,9 @@ img { display: block; max-width: 100%; }
 /* 카드·컨텐츠 다크모드 border */
 [data-theme="dark"] .info-card,
 [data-theme="dark"] .sk-card { border-color: var(--card-bd); }
+/* 팔레트 액센트 복원 (border-color 오버라이드 이후) */
+[data-theme="dark"] .info-card { border-left-color: var(--p1-on-surface); }
+[data-theme="dark"] .sk-card   { border-top-color: rgba(var(--p1-rgb),.45); }
 [data-theme="dark"] .contact-item {
   background: var(--card-bg);
   border-color: var(--card-bd);
