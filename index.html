@@ -8,6 +8,22 @@
 </head>
 <body>
 
+  <!-- 상단 네비게이션 -->
+  <nav class="topnav" id="topnav">
+    <div class="topnav-inner">
+      <span class="topnav-logo">Hyesu Yun</span>
+      <ul class="topnav-links">
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="https://github.com/hyesu91" target="_blank">GitHub</a></li>
+      </ul>
+      <button class="topnav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
   <div class="page">
 
     <!-- 좌측 사이드바 -->
@@ -70,7 +86,7 @@
     <!-- 우측 본문 -->
     <main class="content">
 
-      <section class="section">
+      <section class="section" id="summary">
         <h2 class="section-title">Summary</h2>
         <p class="summary">
           항체의약품 개발 분야 8년 경력의 연구원으로, 퇴행성 뇌질환(알츠하이머, 파킨슨) 타겟 항체 치료제 개발에 전문성을 보유하고 있습니다.
@@ -79,7 +95,7 @@
         </p>
       </section>
 
-      <section class="section">
+      <section class="section" id="experience">
         <h2 class="section-title">Experience</h2>
 
         <div class="exp-item">
@@ -105,7 +121,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="skills">
         <h2 class="section-title">Skills & Expertise</h2>
         <div class="skills-grid">
 
@@ -149,6 +165,21 @@
 
     </main>
   </div>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links = document.querySelector('.topnav-links');
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.classList.remove('active');
+      });
+    });
+  </script>
 
 </body>
 </html>
