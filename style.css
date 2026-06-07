@@ -376,7 +376,7 @@ img { display: block; max-width: 100%; }
   content: '';
   display: block;
   height: 4px;
-  background: linear-gradient(90deg, var(--teal), var(--blue), var(--purple));
+  background: linear-gradient(90deg, var(--teal), rgba(var(--p2-rgb),.5), var(--purple));
 }
 
 /* ─── Sections ───────────────────────────────────────── */
@@ -457,7 +457,7 @@ img { display: block; max-width: 100%; }
   border: 1px solid var(--border);
   transition: color .2s, border-color .2s;
 }
-.contact-item:hover { color: var(--blue); border-color: var(--blue); }
+.contact-item:hover { color: rgba(var(--p2-rgb),.5); border-color: rgba(var(--p2-rgb),.5); }
 
 .about-side { display: flex; flex-direction: column; gap: 16px; }
 
@@ -596,7 +596,7 @@ img { display: block; max-width: 100%; }
 .sk-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 14px 40px rgba(var(--p2-rgb),.13);
-  border-color: var(--blue);
+  border-color: rgba(var(--p2-rgb),.5);
   background: rgba(var(--p2-rgb),0.015);
 }
 .sk-card.wide {
@@ -635,7 +635,7 @@ img { display: block; max-width: 100%; }
 .sk-highlight {
   font-size: .76rem;
   font-weight: 600;
-  color: var(--blue);
+  color: rgba(var(--p2-rgb),.5);
   background: rgba(var(--p2-rgb),.06);
   border: 1px solid rgba(var(--p2-rgb),.18);
   padding: 5px 14px;
@@ -661,7 +661,7 @@ img { display: block; max-width: 100%; }
 #deco-grad stop:nth-child(1),
 #orb-grad  stop:nth-child(1) { stop-color: var(--p1); }
 #deco-grad stop:nth-child(2),
-#orb-grad  stop:nth-child(2) { stop-color: var(--p2); }
+#orb-grad  stop:nth-child(2) { stop-color: var(--p2); stop-opacity: .5; }
 #deco-grad stop:nth-child(3),
 #orb-grad  stop:nth-child(3) { stop-color: var(--p3); }
 
@@ -696,7 +696,7 @@ img { display: block; max-width: 100%; }
   border-color: var(--card-bd);
   color: var(--muted-text);
 }
-[data-theme="dark"] .contact-item:hover { color: var(--p2); border-color: var(--p2); }
+[data-theme="dark"] .contact-item:hover { color: rgba(var(--p2-rgb),.5); border-color: rgba(var(--p2-rgb),.5); }
 [data-theme="dark"] .tag { background: var(--card-bg); border-color: var(--card-bd); color: var(--body-text); }
 [data-theme="dark"] .sk-card h3 { color: var(--body-text); }
 [data-theme="dark"] .sec-title { color: var(--body-text); }
