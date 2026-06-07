@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OG Image Generator — Hyesu Yun</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#080e1e;color:#e2e8f0;font-family:'Segoe UI','Malgun Gothic',sans-serif;
+      min-height:100vh;padding:32px 20px;display:flex;flex-direction:column;align-items:center;gap:22px}
+    h1{font-size:1.25rem;font-weight:600}h1 em{color:#14b8a6;font-style:normal}
+    .og-wrap{width:100%;max-width:900px;border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden}
+    #ogCanvas{display:block;width:100%;height:auto}
+    .favicons{display:flex;gap:20px;align-items:flex-end}
+    .fv{display:flex;flex-direction:column;align-items:center;gap:6px}
+    .fv canvas{border:1px solid rgba(255,255,255,.12);border-radius:5px}
+    .fv span{font-size:11px;color:#64748b}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .btn{padding:9px 20px;border:1px solid #14b8a6;background:transparent;color:#14b8a6;
+      border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:all .18s;font-family:inherit}
+    .btn:hover{background:#14b8a6;color:#080e1e}
+    .guide{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;
+      padding:16px 20px;font-size:13px;line-height:1.9;max-width:820px;width:100%}
+    .guide strong{color:#14b8a6}
+    code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:12px}
+    ol{padding-left:18px}li+li{margin-top:5px}
+  </style>
+</head>
+<body>
+<h1>🧬 OG Image &amp; Favicon Generator — <em>Hyesu Yun</em></h1>
+
+<div class="og-wrap"><canvas id="ogCanvas" width="1200" height="630"></canvas></div>
+
+<div class="favicons">
+  <div class="fv"><canvas id="fav16"  width="16"  height="16"></canvas><span>16×16</span></div>
+  <div class="fv"><canvas id="fav32"  width="32"  height="32"></canvas><span>32×32</span></div>
+  <div class="fv"><canvas id="fav192" width="192" height="192"></canvas><span>192×192</span></div>
+</div>
+
+<div class="btns">
+  <button class="btn" onclick="dl('ogCanvas','og-image.png')">⬇ og-image.png (1200×630)</button>
+  <button class="btn" onclick="dl('fav32','favicon.png')">⬇ favicon.png (32px)</button>
+  <button class="btn" onclick="dl('fav192','apple-touch-icon.png')">⬇ apple-touch-icon.png (192px)</button>
+</div>
+
+<div class="guide">
+  <strong>사용 방법</strong>
+  <ol>
+    <li>위 버튼 3개로 PNG 파일을 다운로드합니다.</li>
+    <li>다운로드된 파일을 <code>C:\coding\rest01\</code> 폴더에 복사합니다.</li>
+    <li>터미널에서 아래 명령어를 실행합니다:<br>
+      <code>git add og-image.png favicon.png apple-touch-icon.png</code><br>
+      <code>git commit -m "add og-image and favicon" &amp;&amp; git push</code>
+    </li>
+    <li>배포 후 카카오톡에 링크 공유 시 썸네일이 표시됩니다.</li>
+  </ol>
+</div>
+
+<script>
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function rrect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
+}
+
+function drawHex(ctx, cx, cy, size) {
+  ctx.beginPath();
+  for (let i=0;i<6;i++){
+    const a=Math.PI/3*i-Math.PI/6;
+    const x=cx+size*Math.cos(a), y=cy+size*Math.sin(a);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.closePath(); ctx.stroke();
+}
+
+function dl(id, name) {
+  const a=document.createElement('a');
+  a.download=name;
+  a.href=document.getElementById(id).toDataURL('image/png');
+  a.click();
+}
+
+// ── OG Image (1200×630) ──────────────────────────────────────────────────────
+function drawOG(canvas) {
+  const ctx=canvas.getContext('2d');
+  const W=1200, H=630;
+  const KO='"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",Dotum,sans-serif';
+  const EN='"Segoe UI","Helvetica Neue",Arial,sans-serif';
+
+  // Background
+  const bg=ctx.createRadialGradient(360,H/2,0,360,H/2,700);
+  bg.addColorStop(0,'#0e2258'); bg.addColorStop(0.55,'#091738'); bg.addColorStop(1,'#050b18');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  // Right-side darkening
+  const rd=ctx.createLinearGradient(560,0,W,0);
+  rd.addColorStop(0,'rgba(5,11,24,0)'); rd.addColorStop(1,'rgba(5,11,24,0.55)');
+  ctx.fillStyle=rd; ctx.fillRect(0,0,W,H);
+
+  // Dot grid (left half)
+  ctx.fillStyle='rgba(255,255,255,0.035)';
+  for(let gx=28;gx<610;gx+=42)for(let gy=28;gy<H;gy+=42){
+    ctx.beginPath(); ctx.arc(gx,gy,1,0,Math.PI*2); ctx.fill();
+  }
+
+  // Neuron network
+  const N=[
+    {x:78, y:148,r:5, c:[20,184,166]},{x:158,y:90, r:6, c:[96,165,250]},
+    {x:238,y:190,r:9, c:[20,184,166]},{x:122,y:285,r:7, c:[96,165,250]},
+    {x:318,y:120,r:5, c:[20,184,166]},{x:400,y:242,r:14,c:[96,165,250]},
+    {x:268,y:368,r:7, c:[20,184,166]},{x:160,y:440,r:5, c:[96,165,250]},
+    {x:458,y:135,r:6, c:[20,184,166]},{x:518,y:288,r:11,c:[20,184,166]},
+    {x:418,y:420,r:7, c:[96,165,250]},{x:308,y:498,r:5, c:[20,184,166]},
+    {x:518,y:462,r:5, c:[96,165,250]},{x:68, y:400,r:4, c:[20,184,166]},
+    {x:558,y:378,r:8, c:[20,184,166]},{x:192,y:548,r:4, c:[96,165,250]},
+    {x:388,y:545,r:5, c:[20,184,166]},{x:558,y:188,r:6, c:[96,165,250]},
+  ];
+  const edges=[
+    [0,1],[0,3],[1,2],[1,4],[2,3],[2,5],[2,4],[3,6],[3,7],[3,13],
+    [4,5],[4,8],[5,6],[5,9],[5,8],[6,10],[6,11],[7,13],[7,15],
+    [8,9],[8,17],[9,10],[9,14],[9,12],[9,17],[10,11],[10,12],
+    [11,15],[11,16],[12,14],[12,16],[14,16],[14,17]
+  ];
+
+  // Draw axon connections
+  ctx.lineWidth=0.9;
+  edges.forEach(([a,b])=>{
+    const na=N[a],nb=N[b];
+    const g=ctx.createLinearGradient(na.x,na.y,nb.x,nb.y);
+    g.addColorStop(0,`rgba(${na.c},0.38)`); g.addColorStop(1,`rgba(${nb.c},0.38)`);
+    ctx.strokeStyle=g; ctx.beginPath(); ctx.moveTo(na.x,na.y); ctx.lineTo(nb.x,nb.y); ctx.stroke();
+  });
+
+  // Draw soma nodes
+  N.forEach(n=>{
+    const [r,g,b]=n.c;
+    const og=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*5);
+    og.addColorStop(0,`rgba(${r},${g},${b},0.22)`); og.addColorStop(1,`rgba(${r},${g},${b},0)`);
+    ctx.fillStyle=og; ctx.beginPath(); ctx.arc(n.x,n.y,n.r*5,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=`rgba(${r},${g},${b},0.92)`;
+    ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.65)';
+    ctx.beginPath(); ctx.arc(n.x-n.r*.28,n.y-n.r*.28,n.r*.38,0,Math.PI*2); ctx.fill();
+  });
+
+  // Separator line
+  const sg=ctx.createLinearGradient(618,30,618,600);
+  sg.addColorStop(0,'rgba(20,184,166,0)');  sg.addColorStop(0.25,'rgba(20,184,166,0.45)');
+  sg.addColorStop(0.75,'rgba(20,184,166,0.45)'); sg.addColorStop(1,'rgba(20,184,166,0)');
+  ctx.strokeStyle=sg; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(618,30); ctx.lineTo(618,600); ctx.stroke();
+  // Diamond
+  ctx.save(); ctx.translate(618,315); ctx.rotate(Math.PI/4);
+  ctx.fillStyle='#14b8a6'; ctx.fillRect(-4.5,-4.5,9,9); ctx.restore();
+
+  // Hex grid decoration (top-right corner)
+  ctx.strokeStyle='rgba(96,165,250,0.055)'; ctx.lineWidth=1;
+  for(let hx=1068;hx<1200;hx+=38)for(let hy=18;hy<190;hy+=34)
+    drawHex(ctx,hx+(Math.round(hy/34)%2===0?0:19),hy,16);
+
+  // ── Text content ──
+  const TX=650;
+
+  // Category badge
+  ctx.fillStyle='#14b8a6';
+  ctx.beginPath(); ctx.arc(TX,111,3.5,0,Math.PI*2); ctx.fill();
+  ctx.font=`600 12px ${EN}`; ctx.fillStyle='#14b8a6';
+  ctx.fillText('NEUROSCIENCE RESEARCHER',TX+12,116);
+
+  // Korean name
+  ctx.fillStyle='#ffffff'; ctx.font=`bold 68px ${KO}`;
+  ctx.fillText('윤혜수',TX,210);
+
+  // English name
+  ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font=`300 27px ${EN}`;
+  ctx.fillText('Hyesu Yun',TX,250);
+
+  // Accent line
+  ctx.fillStyle='#14b8a6'; ctx.fillRect(TX,272,52,2.5);
+  ctx.fillStyle='rgba(20,184,166,0.2)'; ctx.fillRect(TX+56,273,230,1);
+
+  // Korean role
+  ctx.fillStyle='rgba(255,255,255,0.9)'; ctx.font=`500 25px ${KO}`;
+  ctx.fillText('항체의약품 개발 연구원',TX,320);
+
+  // English role
+  ctx.fillStyle='#14b8a6'; ctx.font=`400 17px ${EN}`;
+  ctx.fillText('Antibody Drug Researcher',TX,352);
+
+  // Research areas
+  ctx.fillStyle='rgba(255,255,255,0.36)'; ctx.font=`400 14px ${EN}`;
+  ctx.fillText("Alzheimer's Disease  ·  Parkinson's Disease  ·  α-Synuclein",TX,390);
+
+  // Experience
+  ctx.fillStyle='rgba(255,255,255,0.26)'; ctx.font=`400 13px ${KO}`;
+  ctx.fillText('8년 연구경력  ·  항체 스크리닝  ·  리드클론 선별  ·  어세이 개발',TX,418);
+
+  // Chips row 1 (teal)
+  const tags1=['Hybridoma','Phage Display','ELISA','IHC'];
+  let cx2=TX; ctx.font=`500 11px ${EN}`;
+  tags1.forEach(t=>{
+    const tw=ctx.measureText(t).width+20;
+    ctx.fillStyle='rgba(20,184,166,0.1)'; rrect(ctx,cx2,440,tw,22,4); ctx.fill();
+    ctx.strokeStyle='rgba(20,184,166,0.42)'; ctx.lineWidth=0.8; rrect(ctx,cx2,440,tw,22,4); ctx.stroke();
+    ctx.fillStyle='#14b8a6'; ctx.fillText(t,cx2+10,455); cx2+=tw+8;
+  });
+
+  // Chips row 2 (blue)
+  const tags2=['SPR','SEC-HPLC','SDS-PAGE','Confocal'];
+  cx2=TX; ctx.font=`500 11px ${EN}`;
+  tags2.forEach(t=>{
+    const tw=ctx.measureText(t).width+20;
+    ctx.fillStyle='rgba(96,165,250,0.08)'; rrect(ctx,cx2,470,tw,22,4); ctx.fill();
+    ctx.strokeStyle='rgba(96,165,250,0.35)'; ctx.lineWidth=0.8; rrect(ctx,cx2,470,tw,22,4); ctx.stroke();
+    ctx.fillStyle='#60a5fa'; ctx.fillText(t,cx2+10,485); cx2+=tw+8;
+  });
+
+  // Divider
+  ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.fillRect(TX,514,530,1);
+
+  // URL
+  ctx.fillStyle='rgba(255,255,255,0.22)'; ctx.font=`400 13px ${EN}`;
+  ctx.fillText('hyesu91.github.io/rest01',TX,542);
+
+  // Bottom teal accent
+  const bl=ctx.createLinearGradient(TX,558,TX+340,558);
+  bl.addColorStop(0,'rgba(20,184,166,0.75)');
+  bl.addColorStop(0.65,'rgba(20,184,166,0.15)');
+  bl.addColorStop(1,'rgba(20,184,166,0)');
+  ctx.strokeStyle=bl; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(TX,558); ctx.lineTo(TX+340,558); ctx.stroke();
+}
+
+// ── Favicon ──────────────────────────────────────────────────────────────────
+function drawFavicon(canvas) {
+  const ctx=canvas.getContext('2d');
+  const S=canvas.width, sc=S/32;
+  const cx=S/2, cy=S/2;
+
+  // Background circle
+  const bg=ctx.createRadialGradient(cx,cy*.85,0,cx,cy,S*.52);
+  bg.addColorStop(0,'#0e2258'); bg.addColorStop(1,'#060c1a');
+  ctx.fillStyle=bg;
+  ctx.beginPath(); ctx.arc(cx,cy,S/2,0,Math.PI*2); ctx.fill();
+
+  // Center glow
+  const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,9*sc);
+  cg.addColorStop(0,'rgba(20,184,166,0.38)'); cg.addColorStop(1,'rgba(20,184,166,0)');
+  ctx.fillStyle=cg;
+  ctx.beginPath(); ctx.arc(cx,cy,9*sc,0,Math.PI*2); ctx.fill();
+
+  // 6 axons (alternating teal/blue)
+  const axLen=9.5*sc, endR=2.2*sc;
+  const colors=['20,184,166','96,165,250'];
+  [0,60,120,180,240,300].forEach((deg,i)=>{
+    const rad=(deg-90)*Math.PI/180;
+    const ex=cx+Math.cos(rad)*axLen, ey=cy+Math.sin(rad)*axLen;
+    const col=colors[i%2];
+    ctx.strokeStyle=`rgba(${col},0.78)`; ctx.lineWidth=1.3*sc; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(ex,ey); ctx.stroke();
+    ctx.fillStyle=`rgba(${col},0.92)`;
+    ctx.beginPath(); ctx.arc(ex,ey,endR,0,Math.PI*2); ctx.fill();
+  });
+
+  // Central soma
+  ctx.fillStyle='#14b8a6';
+  ctx.beginPath(); ctx.arc(cx,cy,5*sc,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,0.72)';
+  ctx.beginPath(); ctx.arc(cx-1.4*sc,cy-1.4*sc,1.9*sc,0,Math.PI*2); ctx.fill();
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+drawOG(document.getElementById('ogCanvas'));
+[16,32,192].forEach(s=>drawFavicon(document.getElementById('fav'+s)));
+</script>
+</body>
+</html>
