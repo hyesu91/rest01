@@ -176,6 +176,7 @@ img { display: block; max-width: 100%; }
   transform: translate(-50%, -50%);
   width: 158px;
   height: 158px;
+  z-index: 2;
 }
 .hv-photo {
   width: 100%;
