@@ -132,23 +132,90 @@ img { display: block; max-width: 100%; }
   margin: 0 auto;
   padding: 100px 40px 80px;
   display: grid;
-  grid-template-columns: 220px 1fr auto;
-  gap: 48px;
+  grid-template-columns: 1fr 320px;
+  gap: 60px;
   align-items: center;
   width: 100%;
 }
 
-/* ── Hero Deco SVG ── */
-.hero-deco {
+/* ── Hero Visual (orbit + photo + info) ── */
+.hero-visual {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 24px;
 }
-#deco-svg {
-  width: 200px;
-  height: 200px;
+.hv-orbit {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  flex-shrink: 0;
+}
+#orbit-svg {
+  width: 100%;
+  height: 100%;
   overflow: visible;
-  opacity: 0.85;
+}
+.hv-photo-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 158px;
+  height: 158px;
+}
+.hv-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid rgba(20,184,166,0.45);
+  box-shadow: 0 0 0 7px rgba(20,184,166,0.09), 0 16px 40px rgba(0,0,0,0.35);
+}
+.hv-info {
+  text-align: center;
+}
+.hv-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.hv-role {
+  font-size: .8rem;
+  color: var(--teal);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.hv-stats {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.hv-stats > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.hv-stats strong {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+.hv-stats span {
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+}
+.hv-stats small {
+  font-size: .68rem;
+  color: rgba(255,255,255,.42);
+  font-weight: 400;
 }
 
 /* hero text side */
@@ -238,66 +305,6 @@ img { display: block; max-width: 100%; }
 }
 .btn-ghost:hover { background: rgba(255,255,255,.13); }
 
-/* hero profile card */
-.hero-card {
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 20px;
-  padding: 28px 24px;
-  text-align: center;
-  backdrop-filter: blur(12px);
-  min-width: 210px;
-}
-.hero-avatar {
-  width: 110px; height: 110px;
-  border-radius: 50%;
-  margin: 0 auto 16px;
-  object-fit: cover;
-  border: 3px solid rgba(20,184,166,.5);
-  box-shadow: 0 0 0 6px rgba(20,184,166,.12);
-}
-.hc-name {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 4px;
-}
-.hc-role {
-  font-size: .78rem;
-  color: var(--teal);
-  font-weight: 500;
-  margin-bottom: 20px;
-}
-.hc-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-  border-top: 1px solid rgba(255,255,255,.08);
-  padding-top: 16px;
-}
-.hc-stats > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-.hc-stats strong {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #fff;
-  line-height: 1;
-}
-.hc-stats span {
-  font-size: .9rem;
-  font-weight: 700;
-  color: var(--teal);
-  line-height: 1;
-}
-.hc-stats small {
-  font-size: .68rem;
-  color: rgba(255,255,255,.45);
-  font-weight: 400;
-}
 
 /* scroll hint */
 .hero-scroll {
@@ -629,11 +636,11 @@ img { display: block; max-width: 100%; }
     grid-template-columns: 1fr;
     text-align: center;
     padding: 90px 28px 70px;
-    gap: 40px;
+    gap: 48px;
   }
-  .hero-deco { display: none; }
   .hero-chips, .hero-actions { justify-content: center; }
-  .hero-card { margin: 0 auto; max-width: 280px; }
+  .hv-orbit { width: 260px; height: 260px; }
+  .hv-photo-wrap { width: 136px; height: 136px; }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .about-side { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
