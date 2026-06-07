@@ -192,11 +192,13 @@ function drawOG(canvas) {
 
   // Research areas
   ctx.fillStyle='rgba(255,255,255,0.36)'; ctx.font=`400 14px ${EN}`;
-  ctx.fillText("Alzheimer's Disease  ·  Parkinson's Disease  ·  α-Synuclein",TX,390);
+  ctx.fillText("Alzheimer's Disease  ·  Parkinson's Disease",TX,388);
+  ctx.fillStyle='rgba(255,255,255,0.28)'; ctx.font=`400 13px ${EN}`;
+  ctx.fillText("Amyloid-β  ·  Tau  ·  α-Synuclein",TX,410);
 
   // Experience
-  ctx.fillStyle='rgba(255,255,255,0.26)'; ctx.font=`400 13px ${EN}`;
-  ctx.fillText('8 yrs experience  ·  Antibody Screening  ·  Lead Clone Selection  ·  Assay Development',TX,418);
+  ctx.fillStyle='rgba(255,255,255,0.22)'; ctx.font=`400 12px ${EN}`;
+  ctx.fillText('8 yrs experience  ·  Antibody Screening  ·  Lead Clone Selection  ·  Assay Development',TX,430);
 
   // Chips row 1 (teal)
   const tags1=['Hybridoma','Phage Display','ELISA','IHC'];
