@@ -32,20 +32,19 @@
     <canvas id="particles"></canvas>
     <div class="hero-inner">
 
-      <!-- Left: Orbit + Photo (이동됨) -->
+      <!-- Left: Orbit + Photo -->
       <div class="hero-visual fade-up d1">
-      <div class="hero-visual fade-up d2">
         <div class="hv-orbit">
           <svg id="orbit-svg" viewBox="0 0 300 300" fill="none" overflow="visible">
             <defs>
               <linearGradient id="orb-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%"   stop-color="#14b8a6"/>
-                <stop offset="55%"  stop-color="#3b82f6"/>
-                <stop offset="100%" stop-color="#8b5cf6"/>
+                <stop offset="0%"/>
+                <stop offset="55%"/>
+                <stop offset="100%"/>
               </linearGradient>
               <radialGradient id="glow-bg" cx="50%" cy="50%" r="50%">
-                <stop offset="0%"   stop-color="rgba(20,184,166,0.13)"/>
-                <stop offset="100%" stop-color="rgba(20,184,166,0)"/>
+                <stop offset="0%"/>
+                <stop offset="100%" stop-opacity="0"/>
               </radialGradient>
               <filter id="orb-glow" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="3.5" result="blur"/>
@@ -116,9 +115,9 @@
         <svg id="deco-svg" viewBox="-4 -4 110 110" fill="none" overflow="visible">
           <defs>
             <linearGradient id="deco-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stop-color="#14b8a6"/>
-              <stop offset="50%"  stop-color="#3b82f6"/>
-              <stop offset="100%" stop-color="#8b5cf6"/>
+              <stop offset="0%"/>
+              <stop offset="50%"/>
+              <stop offset="100%"/>
             </linearGradient>
             <filter id="deco-glow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="3" result="blur"/>

@@ -1,28 +1,11 @@
 /* ─── Variables ─────────────────────────────────────── */
+/*
+   팔레트 토큰(--p1, --p2, --p3, --hero-from 등)은
+   palettes.css에서만 정의합니다.
+   style.css는 별칭과 레이아웃 변수만 선언합니다.
+*/
 :root {
-  /* 팔레트 토큰 — palettes.css에서 재정의됨 */
-  --p1:            #14b8a6;
-  --p1-rgb:        20,184,166;
-  --p1-text:       #0f766e;
-  --p2:            #3b82f6;
-  --p2-rgb:        59,130,246;
-  --p2-text:       #1d4ed8;
-  --p3:            #8b5cf6;
-  --p3-rgb:        139,92,246;
-  --hero-from:     #0b1120;
-  --hero-from-rgb: 11,17,32;
-  --hero-mid:      #0f2250;
-  --hero-to:       #0d1f40;
-  --surface-dark:  #111827;
-  --surface:       #f8fafc;
-  --card-bg:       #ffffff;
-  --card-bd:       #e2e8f0;
-  --body-text:     #1e293b;
-  --muted-text:    #64748b;
-  --p1-on-surface: var(--p1-text);
-  --p2-on-surface: var(--p2-text);
-
-  /* 레거시 별칭 — 기존 코드 호환 */
+  /* 레거시 별칭 — 기존 CSS 코드와의 호환 */
   --navy:   var(--hero-from);
   --navy2:  var(--surface-dark);
   --teal:   var(--p1);
@@ -34,8 +17,8 @@
   --card:   var(--card-bg);
   --border: var(--card-bd);
 
+  /* 레이아웃 상수 */
   --radius: 14px;
-  --shadow: 0 4px 24px rgba(0,0,0,.07);
   --max:    1080px;
 }
 
